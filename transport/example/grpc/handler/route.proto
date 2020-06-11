@@ -1,0 +1,35 @@
+syntax = "proto2";
+
+package handler;
+option go_package = "handler";
+
+import "github.com/gogo/protobuf/gogoproto/gogo.proto";
+
+option (gogoproto.marshaler_all) = true;
+option (gogoproto.sizer_all) = true;
+option (gogoproto.unmarshaler_all) = true;
+option (gogoproto.goproto_getters_all) = false;
+
+message HelloRequest {
+    optional string name = 1 [(gogoproto.nullable) = false];
+}
+
+message HelloData {
+    optional string hello = 1 [(gogoproto.nullable) = false];
+}
+
+message HelloResponse {
+    optional string status = 1 [(gogoproto.nullable) = false];
+    optional string message = 2 [(gogoproto.nullable) = false];
+    optional HelloData data = 3 [(gogoproto.nullable) = false];
+}
+
+message DefaultResponse {
+    optional string status = 1 [(gogoproto.nullable) = false];
+    optional string message = 2 [(gogoproto.nullable) = false];
+}
+
+service HelloHandler {
+    rpc Hello (HelloRequest) returns (HelloResponse) {
+    };
+}
